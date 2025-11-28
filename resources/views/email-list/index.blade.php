@@ -1,21 +1,19 @@
 <x-layouts.app>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <x-h2>
             {{ __('Email List') }}
-        </h2>
+        </x-h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @forelse ($emailLists as $list)
-                        something here
-                    @empty
-                        Nada
-                    @endforelse
-                </div>
+    <x-card>
+        @forelse ($emailLists as $list)
+            something here
+        @empty
+            <div class="flex justify-center">
+                <x-link-button :href="route('email-list.create')">
+                    {{ __('Create New Email List') }}
+                </x-link-button>
             </div>
-        </div>
-    </div>
+        @endforelse 
+    </x-card>
 </x-layouts.app>
