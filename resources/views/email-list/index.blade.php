@@ -12,7 +12,7 @@
                     {{ __('Create New Email List') }}
                 </x-link-button>
                 <x-form :action="route('email-list.index')" class="w-2/5">
-                    <x-text-input name="search" :placeholder="__('Search')" :value="$search"/>
+                    <x-input.text name="search" :placeholder="__('Search')" :value="$search"/>
                 </x-form>
             </div>
             <x-table :headers="['#', __('Email list'), __('Qty'), __('Actions')]">

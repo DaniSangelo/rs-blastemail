@@ -9,7 +9,7 @@
         <x-form :action="route('email-list.store')" post enctype="multipart/form-data">
             <div>
                 <x-input-label for="title" :value="__('Title')"/>
-                <x-text-input
+                <x-input.text
                     id="title"
                     name="title"
                     type="text"
@@ -25,7 +25,7 @@
 
             <div>
                 <x-input-label for="listFile" :value="__('List File')"/>
-                <x-text-input
+                <x-input.text
                     id="listFile"
                     name="listFile"
                     type="file"
