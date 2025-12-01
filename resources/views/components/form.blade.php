@@ -10,7 +10,9 @@
 @endphp
 
 <form method="{{ $httpMethod }}" {{ $attributes->class(['gap-4 flex flex-col']) }}>
-    @csrf
+    @if(!$httpMethod != 'GET')
+        @csrf
+    @endif
 
     @if ($put)
         @method('put')
