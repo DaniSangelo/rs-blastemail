@@ -21,7 +21,20 @@
                         <x-table.td>{{ $subscriber->id }}</x-td>
                         <x-table.td>{{ $subscriber->name }}</x-td>
                         <x-table.td>{{ $subscriber->email }}</x-td>
-                        <x-table.td></x-td>
+                        <x-table.td>
+                            <x-form
+                                :action="route('subscribers.destroy', [$emailList, $subscriber])"
+                                delete
+                                flat
+                            >
+                                <x-secondary-button
+                                    type="submit"
+                                    onclick="return confirm('{{ __('Are you sure you want to delete this subscriber?') }}');"
+                                >
+                                    {{ __('Delete') }}
+                                </x-secondary-button>
+                            </x-form>
+                        </x-table.td>
                     </tr>
                 @endforeach
             </x-slot>

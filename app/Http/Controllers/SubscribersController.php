@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmailList;
+use App\Models\Subscriber;
 
 class SubscribersController extends Controller
 {
@@ -19,5 +20,11 @@ class SubscribersController extends Controller
             'emailList' => $emailList,
             'search' => $search,
         ]);
+    }
+
+    public function destroy(mixed $_, Subscriber $subscriber)
+    {
+        $subscriber->delete();
+        return back()->with('message', __('Subscriber removed from the list'));
     }
 }

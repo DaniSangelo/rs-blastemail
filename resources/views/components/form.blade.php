@@ -3,13 +3,14 @@
     'put' => null,
     'delete' => null,
     'patch' => null,
+    'flat' => false,
 ])
 
 @php
     $httpMethod = $post || $put || $delete || $patch ? 'post' : 'get';
 @endphp
 
-<form method="{{ $httpMethod }}" {{ $attributes->class(['gap-4 flex flex-col']) }}>
+<form method="{{ $httpMethod }}" {{ $attributes->class(['gap-4 flex flex-col' => !$flat]) }}>
     @if(!$httpMethod != 'GET')
         @csrf
     @endif
