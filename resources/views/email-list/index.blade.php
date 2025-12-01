@@ -22,7 +22,11 @@
                             <x-table.td>{{ $list->id }}</x-td>
                             <x-table.td>{{ $list->title }}</x-td>
                             <x-table.td>{{ $list->subscribers_count }}</x-td>
-                            <x-table.td>Silver</x-td>
+                            <x-table.td>
+                                <x-link-button :href="route('subscribers.index', $list)">
+                                    Subscribers
+                                </x-link-button>
+                            </x-td>
                         </tr>
                     @endforeach
                 </x-slot>
