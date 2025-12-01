@@ -10,7 +10,7 @@
             <x-button.link :href="route('subscribers.create', $emailList)">
                 {{ __('Add a new subscriber') }}
             </x-button.link>
-            <x-form :action="route('subscribers.index', $emailList)" class="w-2/5" x-data x-ref="form">
+            <x-form :action="route('subscribers.index', $emailList)" class="w-3/5 flex space-x-4" flat x-data x-ref="form">
                 <x-input.checkbox
                     name="showTrash"
                     :label="__('Show deleted records')"
@@ -18,7 +18,7 @@
                     @click="$refs.form.submit()"
                     :checked="$showTrash"
                 />
-                <x-input.text name="search" :placeholder="__('Search')" :value="$search"/>
+                <x-input.text name="search" :placeholder="__('Search')" :value="$search" class="w-full"/>
             </x-form>
         </div>
         <x-table :headers="['#', __('Name'), __('Email'), __('Actions')]">

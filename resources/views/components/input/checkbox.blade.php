@@ -12,5 +12,5 @@
         name="{{ $name }}"
         @if($checked) checked @endif
     >
-    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ $label }}</span>
+    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">{{ $label }}</span>
 </label>
