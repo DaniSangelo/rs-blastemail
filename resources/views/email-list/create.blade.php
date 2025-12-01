@@ -40,12 +40,12 @@
             </div>
             
             <div class="flex items-center space-x-4">
-                <x-secondary-button type="reset">
+                <x-button.secondary type="reset">
                     {{ __('Cancel') }}
-                </x-secondary-button>
-                <x-primary-button type="submit">
+                </x-button.secondary>
+                <x-button type="submit">
                     {{ __('Save') }}
-                </x-primary-button>
+                </x-button>
             </div>
         </x-form>
     </x-card>

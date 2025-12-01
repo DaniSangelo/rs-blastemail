@@ -7,9 +7,9 @@
 
     <x-card class="space-y-4">
         <div class="flex justify-between">
-            <x-link-button :href="route('subscribers.create', $emailList)">
+            <x-button.link :href="route('subscribers.create', $emailList)">
                 {{ __('Add a new subscriber') }}
-            </x-link-button>
+            </x-button.link>
             <x-form :action="route('subscribers.index', $emailList)" class="w-2/5" x-data x-ref="form">
                 <x-input.checkbox
                     name="showTrash"
@@ -35,12 +35,12 @@
                                 flat
                             >
                             @unless ($subscriber->trashed())
-                                <x-secondary-button
+                                <x-button.secondary
                                     type="submit"
                                     onclick="return confirm('{{ __('Are you sure you want to delete this subscriber?') }}');"
                                 >
                                     {{ __('Delete') }}
-                                </x-secondary-button>
+                                </x-button.secondary>
                             @else
                                 <x-badge danger>
                                     {{  __('Deleted') }}
