@@ -19,7 +19,8 @@ class EmailListController extends Controller
             ->when($search, function ($query, $search) {
                 $query->where("title","like","%$search%");
             })
-            ->paginate(5);
+            ->paginate(5)
+            ->appends(compact("search"));
 
         return view('email-list.index',[
             'emailLists' => $emailList,
