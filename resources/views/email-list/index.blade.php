@@ -15,15 +15,15 @@
                     <x-input.text name="search" :placeholder="__('Search')" :value="$search"/>
                 </x-form>
             </div>
-            <x-table :headers="['#', __('Email list'), __('Qty'), __('Actions')]">
+            <x-table :headers="['#', __('Email list'), __('Qty Subscribers'), __('Actions')]">
                 <x-slot name="body">
                     @foreach ($emailLists as $list)
                         <tr>
-                            <x-table.td>{{ $list->id }}</x-td>
+                            <x-table.td class="w-1">{{ $list->id }}</x-td>
                             <x-table.td>{{ $list->title }}</x-td>
-                            <x-table.td>{{ $list->subscribers_count }}</x-td>
+                            <x-table.td class="w-1">{{ $list->subscribers_count }}</x-td>
                             <x-table.td>
-                                <x-button.link :href="route('subscribers.index', $list)">
+                                <x-button.link secondary :href="route('subscribers.index', $list)">
                                     Subscribers
                                 </x-button.link>
                             </x-td>

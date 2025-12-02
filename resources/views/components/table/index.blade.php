@@ -7,7 +7,7 @@
     <table class="w-full text-left text-sm text-on-surface dark:text-on-surface-dark">
         <thead class="border-b border-outline bg-gray-900/50 text-sm text-on-surface-strong dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark-strong">
             @foreach ($headers as $header)
-                <th scope="col" class="p-4">{{ $header }}</th>
+                <th scope="col" class="p-4 whitespace-nowrap">{{ $header }}</th>
             @endforeach
         </thead>
         <tbody class="divide-y divide-outline dark:divide-outline-dark">
