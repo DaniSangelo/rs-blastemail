@@ -1,48 +1,49 @@
 <x-layouts.app>
     <x-slot name="header">
         <x-h2>
-            {{ __('Email List') }} > {{ __('Create new list') }}
+            {{ __('Email List') }} > $emailList->title >> {{ __('Add a new subscriber') }}
         </x-h2>
     </x-slot>
 
     <x-card>
-        <x-form :action="route('email-list.create')" post enctype="multipart/form-data">
+        <x-form :action="route('subscribers.create', $emailList)" post>
             <div>
-                <x-input-label for="title" :value="__('Title')"/>
+                <x-input-label for="name" :value="__('Name')"/>
                 <x-input.text
-                    id="title"
-                    name="title"
+                    id="name"
+                    name="name"
                     type="text"
-                    :value="old('title')"
+                    :value="old('name')"
                     autofocus
                     class="block mt-1 w-full"
                 />
                 <x-input-error
-                    :messages="$errors->get('title')"
+                    :messages="$errors->get('name')"
                     class="mt-2"
                 />
             </div>
 
             <div>
-                <x-input-label for="listFile" :value="__('List File')"/>
+                <x-input-label for="email" :value="__('Email')"/>
                 <x-input.text
-                    id="listFile"
-                    name="listFile"
-                    type="file"
+                    id="email"
+                    name="email"
+                    type="text"
+                    :value="old('email')"
                     autofocus
-                    accept=".csv"
                     class="block mt-1 w-full"
                 />
                 <x-input-error
-                    :messages="$errors->get('listFile')"
+                    :messages="$errors->get('email')"
                     class="mt-2"
                 />
             </div>
+
             
             <div class="flex items-center space-x-4">
-                <x-button.secondary type="reset">
+                <x-button.link :href="route('subscribers.index', $emailList)" secondary>
                     {{ __('Cancel') }}
-                </x-button.secondary>
+                </x-button.link>
                 <x-button type="submit">
                     {{ __('Save') }}
                 </x-button>
