@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('email-template.index')" :active="request()->routeIs('email-template.*')">
                         {{ __('Templates') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('campaign.index')" :active="request()->routeIs('campaign.*')">
+                        {{ __('Campaigns') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -87,6 +90,12 @@
                 :active="request()->routeIs('email-template.*')"
             >
                 {{ __('Templates') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link
+                :href="route('campaign.index')"
+                :active="request()->routeIs('campaign.*')"
+            >
+                {{ __('Campaigns') }}
             </x-responsive-nav-link>
         </div>
 
