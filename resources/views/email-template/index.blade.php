@@ -27,25 +27,31 @@
                     <tr>
                         <x-table.td>{{ $template->id }}</x-td>
                         <x-table.td>{{ $template->name }}</x-td>
-                        <x-table.td>
-                            <x-form
-                                :action="route('email-template.destroy')"
-                                delete
-                                flat
+                        <x-table.td class="flex space-x-4 items-center">
+                            <x-button.link
+                                secondary
+                                :href="route('email-template.edit', $template)"
                             >
+                                {{ __('Edit') }}
+                            </x-button.secondary>
                             @unless ($template->trashed())
-                                <x-button.secondary
-                                    type="submit"
-                                    onclick="return confirm('{{ __('Are you sure you want to delete?') }}');"
+                                <x-form
+                                    :action="route('email-template.destroy', $template)"
+                                    delete
+                                    flat
                                 >
-                                    {{ __('Delete') }}
-                                </x-button.secondary>
+                                    <x-button.secondary
+                                        type="submit"
+                                        onclick="return confirm('{{ __('Are you sure you want to delete?') }}');"
+                                    >
+                                        {{ __('Delete') }}
+                                    </x-button.secondary>
+                                </x-form>
                             @else
                                 <x-badge danger>
                                     {{  __('Deleted') }}
                                 </x-badge>
                             @endunless
-                            </x-form>
                         </x-table.td>
                     </tr>
                 @endforeach

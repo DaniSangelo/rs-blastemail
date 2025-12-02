@@ -1,3 +1,3 @@
-<td class="p-4">
+<td {{ $attributes->class(['p-4']) }}>
     {{ $slot }}
 </td>
