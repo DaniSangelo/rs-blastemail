@@ -43,9 +43,18 @@
                                         </x-button.secondary>
                                     </x-form>
                                 @else
-                                    <x-badge danger>
-                                        {{  __('Deleted') }}
-                                    </x-badge>
+                                    <x-form
+                                        :action="route('campaign.restore', $campaign)"
+                                        patch
+                                        flat
+                                    >
+                                        <x-button.secondary
+                                            type="submit"
+                                            danger
+                                        >
+                                            {{ __('Restore') }}
+                                        </x-button.secondary>
+                                    </x-form>
                                 @endunless
                             </div>
                         </x-table.td>

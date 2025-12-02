@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('email-template', EmailTemplateController::class);
     Route::resource('campaign', CampaignController::class)->only(['index', 'create', 'destroy']);
+    Route::patch('/campaign/{campaign}/restore', [CampaignController::class, 'restore'])->withTrashed()->name('campaign.restore');
 });
 
 require __DIR__.'/auth.php';
