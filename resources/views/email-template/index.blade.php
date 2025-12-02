@@ -28,12 +28,8 @@
                         <x-table.td>{{ $template->id }}</x-td>
                         <x-table.td>{{ $template->name }}</x-td>
                         <x-table.td class="flex space-x-4 items-center">
-                            <x-button.link
-                                secondary
-                                :href="route('email-template.edit', $template)"
-                            >
-                                {{ __('Edit') }}
-                            </x-button.secondary>
+                            <x-button.link secondary :href="route('email-template.show', $template)"> {{ __('Show') }}</x-button.link>
+                            <x-button.link secondary :href="route('email-template.edit', $template)"> {{ __('Edit') }}</x-button.link>
                             @unless ($template->trashed())
                                 <x-form
                                     :action="route('email-template.destroy', $template)"
