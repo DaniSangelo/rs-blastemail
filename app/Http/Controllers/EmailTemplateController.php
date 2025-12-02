@@ -12,7 +12,18 @@ class EmailTemplateController extends Controller
      */
     public function index()
     {
-        return view('template.index');
+        $search = request()->get('search', null);
+        $showTrash = request()->get('showTrash', false);
+
+        return view('email-template.index', [
+            'emailTemplates' => EmailTemplate::query()
+                ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%"))
+                ->when($showTrash, fn($query) => $query->withTrashed())
+                ->paginate(5)
+                ->appends(compact('search')),
+                'search' => $search,
+                'showTrash' => $showTrash
+        ]);
     }
 
     /**
@@ -20,7 +31,7 @@ class EmailTemplateController extends Controller
      */
     public function create()
     {
-        return view('template.create');
+        return view('email-template.create');
     }
 
     /**
@@ -35,7 +46,7 @@ class EmailTemplateController extends Controller
 
         EmailTemplate::create($data);
 
-        return to_route('template.index')
+        return to_route('email-template.index')
             ->with('message', __('Template created successfully'));
     }
 
@@ -44,7 +55,7 @@ class EmailTemplateController extends Controller
      */
     public function show(EmailTemplate $emailTemplate)
     {
-        return view('template.show', compact('emailTemplate'));
+        return view('email-template.show', compact('emailTemplate'));
     }
 
     /**
@@ -52,7 +63,7 @@ class EmailTemplateController extends Controller
      */
     public function edit(EmailTemplate $emailTemplate)
     {
-        return view('template.edit', compact('emailTemplate'));
+        return view('email-template.edit', compact('emailTemplate'));
     }
 
     /**
@@ -68,7 +79,7 @@ class EmailTemplateController extends Controller
         $emailTemplate->fill($data);
         $emailTemplate->save();
 
-        return to_route('template.index')
+        return to_route('email-template.index')
             ->with('message', __('Template updated successfully'));
     }
 
@@ -79,7 +90,7 @@ class EmailTemplateController extends Controller
     {
         $emailTemplate->delete();
 
-        return to_route('template.index')
+        return to_route('email-template.index')
             ->with('message', __('Template deleted successfully'));
     }
 }
