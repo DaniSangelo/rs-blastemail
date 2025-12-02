@@ -25,18 +25,8 @@
 
             <div>
                 <x-input-label for="body" :value="__('Body')"/>
-                <x-input.text
-                    id="body"
-                    name="body"
-                    type="text"
-                    :value="old('body')"
-                    autofocus
-                    class="block mt-1 w-full"
-                />
-                <x-input-error
-                    :messages="$errors->get('name')"
-                    class="mt-2"
-                />
+                <x-input.richtext name="body" :value="old('body')" />
+                <x-input-error :messages="$errors->get('body')" class="mt-2" />
             </div>
             
             <div class="flex items-center space-x-4">
