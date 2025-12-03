@@ -31,14 +31,21 @@
     </div>
     <div>
         <x-input-label for="email_list_id" :value="__('Email List')"/>
-        <x-input.text
-            id="email_list_id"
-            name="email_list_id"
-            type="text"
-            :value="old('email_list_id', $data['email_list_id'])"
-            autofocus
-            class="block mt-1 w-full"
-        />
+
+        <x-select name="email_list_id" id="email_list_id">
+            <option
+                value=""
+                @if (blank(old('email_list_id', $data['email_list_id']))) selected @endif
+            >
+                {{__('Select an email list')}}
+            </option>
+            @foreach ($emailLists as $emailList)
+                <option
+                    value="{{ $emailList->id }}"
+                    @if (old('email_list_id', $data['email_list_id']) == $emailList->id) selected @endif
+                >{{ $emailList->title }}</option>
+            @endforeach
+        </x-select>
         <x-input-error
             :messages="$errors->get("email_list_id")"
             class="mt-2"
@@ -46,14 +53,20 @@
     </div>
     <div>
         <x-input-label for="email_template_id" :value="__('Template')"/>
-        <x-input.text
-            id="email_template_id"
-            name="email_template_id"
-            type="text"
-            :value="old('email_template_id', $data['email_template_id'])"
-            autofocus
-            class="block mt-1 w-full"
-        />
+        <x-select name="email_template_id" id="email_template_id">
+            <option
+                value=""
+                @if (blank(old('email_template_id', $data['email_template_id']))) selected @endif
+            >
+                {{__('Select an email template')}}
+            </option>
+            @foreach ($emailTemplates as $template)
+                <option
+                    value="{{ $template->id }}"
+                    @if (old('email_template_id', $data['email_template_id']) == $template->id) selected @endif
+                >{{ $template->name }}</option>
+            @endforeach
+        </x-select>
         <x-input-error
             :messages="$errors->get('email_template_id')"
             class="mt-2"
