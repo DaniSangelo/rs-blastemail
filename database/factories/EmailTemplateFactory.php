@@ -18,7 +18,7 @@ class EmailTemplateFactory extends Factory
     {
         return [
             'name' => fake()->words(3, true),
-            'body' => fake()->randomHtml(),
+            'body' => fake()->sentence(100, true),
         ];
     }
 }

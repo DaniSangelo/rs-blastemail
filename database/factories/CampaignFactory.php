@@ -20,8 +20,8 @@ class CampaignFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'subject' => fake()->sentence(),
-            'body' => fake()->randomHtml(),
+            'subject' => fake()->words(3, true),
+            'body' => fake()->sentence(100, true),
             'track_click' => fake()->boolean(),
             'track_open' => fake()->boolean(),
             'send_at' => fake()->dateTime(),
