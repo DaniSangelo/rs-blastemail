@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\EmailTemplate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CampaignStoreRequest extends FormRequest
@@ -38,8 +39,8 @@ class CampaignStoreRequest extends FormRequest
             $rules = [
                 'name' => ['required', 'string', 'max:255'],
                 'subject' => ['required', 'string', 'max:50'],
-                'email_list_id' => ['required', 'exists:email_list,id'],
-                'email_template_id' => ['required', 'exists:email_template,id'],
+                'email_list_id' => ['required', 'exists:email_lists,id'],
+                'email_template_id' => ['required', 'exists:email_templates,id'],
             ];
         } elseif ($tab == 'template') {
             $rules = [
@@ -60,6 +61,11 @@ class CampaignStoreRequest extends FormRequest
             }elseif (filled($newValue)) {
                 $session[$key] = $newValue;
             }
+        }
+
+        if ($templateId = $session['email_template_id'] && blank($session['body'])) {
+            $template = EmailTemplate::find($templateId)->select('body')->first();
+            $session['body'] = $template->body;
         }
 
         session()->put('campaigns::create', $session);
@@ -88,55 +94,3 @@ class CampaignStoreRequest extends FormRequest
         return $session;
     }
 }
-/*
-
-        $toRoute = $tab;
-        $map = array_merge([
-            'name' => null,
-            'subject' => null,
-            'email_list_id' => null,
-            'email_template_id' => null,
-            'body' => null,
-            'track_click' => null,
-            'track_open' => null,
-            'send_at' => null,
-        ], request()->all());
-
-        request()->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'subject' => ['required', 'string', 'max:50'],
-            'email_list_id' => ['nullable'],
-            'email_template_id' => ['nullable'],
-            'body' => ['nullable'],
-            'track_click' => ['nullable'],
-            'track_open' => ['nullable'],
-            'send_at' => ['nullable'],
-        ]);
-
-        if (blank($tab)) {
-            request()->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'subject' => ['required', 'string', 'max:50'],
-                'email_list_id' => ['nullable'],
-                'email_template_id' => ['nullable'],
-            ]);
-            $toRoute = route('campaign.create', ['tab' => 'template']);
-        } elseif ($tab == 'template') {
-            request()->validate([
-                'body' => ['required']
-            ]);
-            $toRoute = route('campaign.create', ['tab' => 'schedule']);
-        } elseif ($tab == 'schedule') {
-            request()->validate([
-                'send_at' => ['required', 'date']
-            ]);
-            $toRoute = route('campaign.index');
-        }
-
-        $session = session('campaigns::create');
-        foreach($session as $key) {
-            $session[$key] = filled(data_get($map, $key)) ? data_get($map, $key) : null;
-        }
-
-        session()->put('campaigns::create', $session);
-*/
