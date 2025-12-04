@@ -11,7 +11,7 @@
 @endphp
 
 <form method="{{ $httpMethod }}" {{ $attributes->class(['gap-4 flex flex-col' => !$flat]) }}>
-    @if(!$httpMethod != 'GET')
+    @if($httpMethod != 'get')
         @csrf
     @endif
 
