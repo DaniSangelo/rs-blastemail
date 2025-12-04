@@ -98,8 +98,9 @@ class CampaignController extends Controller
         if(is_null($what)) {
             return to_route('campaign.show', ['campaign' => $campaign->id, 'what' => 'statistics']);
         }
-
         abort_unless(in_array($what, ['statistics', 'open', 'clicked']), Response::HTTP_NOT_FOUND);
-        return view('campaign.show', compact('campaign', 'what'));
+        $search = request()->get('search', null);
+
+        return view('campaign.show', compact('campaign', 'what', 'search'));
     }
 }

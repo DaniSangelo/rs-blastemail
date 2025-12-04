@@ -4,8 +4,6 @@
     </x-slot>
 
     <x-card>
-        <div>{{ $campaign->description }} </div>
-
         <x-tabs :tabs="[
             __('Statistics') => route('campaign.show', ['campaign' => $campaign->id, 'what' => 'statistics']),
             __('Open') => route('campaign.show', ['campaign' => $campaign->id, 'what' => 'open']),
