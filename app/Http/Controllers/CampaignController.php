@@ -11,6 +11,7 @@ use App\Models\EmailTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Traits\Conditionable;
+use Symfony\Component\HttpFoundation\Response;
 
 class CampaignController extends Controller
 {
@@ -90,5 +91,15 @@ class CampaignController extends Controller
         }
 
         return response()->redirectTo($toRoute);
+    }
+
+    public function show(Campaign $campaign, ?string $what = null)
+    {
+        if(is_null($what)) {
+            return to_route('campaign.show', ['campaign' => $campaign->id, 'what' => 'statistics']);
+        }
+
+        abort_unless(in_array($what, ['statistics', 'open', 'clicked']), Response::HTTP_NOT_FOUND);
+        return view('campaign.show', compact('campaign', 'what'));
     }
 }
