@@ -37,10 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/campaign', [CampaignController::class, 'index'])->name('campaign.index');
     Route::patch('/campaign/{campaign}/restore', [CampaignController::class, 'restore'])->withTrashed()->name('campaign.restore');
 
-    Route::get('/campaign/{campaign}/{what?}', [CampaignController::class, 'show'])->name('campaign.show');
-
     Route::get('/campaign/create/{tab?}', [CampaignController::class, 'create'])->name('campaign.create')->middleware(CampaignCreateSessionControl::class);
     Route::post('/campaign/create/{tab?}', [CampaignController::class, 'store']);
+    Route::get('/campaign/{campaign}/{what?}', [CampaignController::class, 'show'])->name('campaign.show');
 });
 
 require __DIR__.'/auth.php';
