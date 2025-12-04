@@ -25,8 +25,10 @@
             <x-slot name="body">
                 @foreach ($campaigns as $campaign)
                     <tr>
-                        <x-table.td class="w-1"> {{ $campaign->id }}</x-td>
-                        <x-table.td>{{ $campaign->name }}</x-td>
+                        <x-table.td class="w-1"> {{ $campaign->id }}</x-table.td>
+                        <x-table.td>
+                            <a class="hover:underline" href="{{ route('campaign.show', $campaign) }}">{{ $campaign->name }}</a>
+                        </x-table.td>
                         <x-table.td class="w-1">
                             <div class="flex space-x-4 items-center">
                                 @unless ($campaign->trashed())
