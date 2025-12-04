@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CampaignStoreRequest;
+use App\Jobs\SendEmailCampaign;
+use App\Mail\EmailCampaign;
 use App\Models\Campaign;
 use App\Models\EmailList;
 use App\Models\EmailTemplate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Traits\Conditionable;
 
 class CampaignController extends Controller
@@ -82,7 +85,8 @@ class CampaignController extends Controller
         $toRoute = $request->getToRoute();
         if ($tab == 'schedule') {
             session()->forget('campaigns::create');
-            Campaign::create($data);
+            $campaign = Campaign::create($data);
+            SendEmailCampaign::dispatchAfterResponse($campaign);
         }
 
         return response()->redirectTo($toRoute);

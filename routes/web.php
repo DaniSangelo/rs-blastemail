@@ -6,7 +6,10 @@ use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscribersController;
 use App\Http\Middleware\CampaignCreateSessionControl;
+use App\Mail\EmailCampaign;
+use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
@@ -35,6 +38,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/campaign/create/{tab?}', [CampaignController::class, 'create'])->name('campaign.create')->middleware(CampaignCreateSessionControl::class);
     Route::post('/campaign/create/{tab?}', [CampaignController::class, 'store']);
+
+    Route::get('/campaign/{campaign}/emails', function (Campaign $campaign) {
+        return (new EmailCampaign($campaign))->render();
+    });
 });
 
 require __DIR__.'/auth.php';
