@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/campaign/create/{tab?}', [CampaignController::class, 'create'])->name('campaign.create')->middleware(CampaignCreateSessionControl::class);
     Route::post('/campaign/create/{tab?}', [CampaignController::class, 'store']);
-    Route::get('/campaign/{campaign}/{what?}', [CampaignController::class, 'show'])->name('campaign.show');
+    Route::get('/campaign/{campaign}/{what?}', [CampaignController::class, 'show'])->name('campaign.show')->withTrashed();
 });
 
 require __DIR__.'/auth.php';
