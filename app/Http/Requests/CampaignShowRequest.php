@@ -9,13 +9,7 @@ class CampaignShowRequest extends FormRequest
 {
     public function authorize()
     {
-        $campaign = $this->route('campaign');
-        $what = $this->route('what');
-
-        if(is_null($what)) {
-            return to_route('campaign.show', ['campaign' => $campaign->id, 'what' => 'statistics']);
-        }
-
+        $what = $this->route('what') ?: 'statistics';
         abort_unless(in_array($what, ['statistics', 'open', 'clicked']), Response::HTTP_NOT_FOUND);
         return true;
     }
@@ -25,5 +19,12 @@ class CampaignShowRequest extends FormRequest
         return [
 
         ];
+    }
+
+    public function checkWhat()
+    {
+        if(is_null($this->route('what'))) {
+            return to_route('campaign.show', ['campaign' => $this->route('campaign'), 'what' => 'statistics']);
+        }
     }
 }

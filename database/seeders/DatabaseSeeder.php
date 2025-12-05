@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             EmailTemplateSeeder::class,
             EmailListSeeder::class,
             CampaignSeeder::class,
+            CampaignEmailSeeder::class,
         ]);
     }
 }

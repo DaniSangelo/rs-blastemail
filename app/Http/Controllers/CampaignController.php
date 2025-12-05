@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CampaignShowRequest;
 use App\Http\Requests\CampaignStoreRequest;
-use App\Jobs\SendEmailCampaign;
+use App\Jobs\SendEmailsCampaignJob;
 use App\Models\Campaign;
 use App\Models\EmailList;
 use App\Models\EmailTemplate;
@@ -84,7 +84,7 @@ class CampaignController extends Controller
         if ($tab == 'schedule') {
             session()->forget('campaigns::create');
             $campaign = Campaign::create($data);
-            SendEmailCampaign::dispatchAfterResponse($campaign);
+            SendEmailsCampaignJob::dispatchAfterResponse($campaign);
         }
 
         return response()->redirectTo($toRoute);
@@ -92,6 +92,10 @@ class CampaignController extends Controller
 
     public function show(CampaignShowRequest $request, Campaign $campaign, ?string $what = null)
     {
+        if($redirect = $request->checkWhat()) {
+            return $redirect;
+        }
+
         $search = request()->get('search', null);
 
         return view('campaign.show', compact('campaign', 'what', 'search'));
