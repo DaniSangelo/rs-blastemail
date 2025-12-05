@@ -23,4 +23,9 @@ class Campaign extends Model
             'send_at' => 'datetime',
         ];
     }
+
+    public function mails()
+    {
+        return $this->hasMany(CampaignEmail::class);
+    }
 }

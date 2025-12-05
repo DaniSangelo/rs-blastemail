@@ -6,6 +6,7 @@ use App\Http\Requests\CampaignShowRequest;
 use App\Http\Requests\CampaignStoreRequest;
 use App\Jobs\SendEmailsCampaignJob;
 use App\Models\Campaign;
+use App\Models\CampaignEmail;
 use App\Models\EmailList;
 use App\Models\EmailTemplate;
 use Illuminate\Support\Traits\Conditionable;
@@ -97,7 +98,17 @@ class CampaignController extends Controller
         }
 
         $search = request()->get('search', null);
+        $query = $campaign
+            ->mails()
+            ->selectRaw("
+                count(subscriber_id) as total_subscribers,
+                sum(openings) as total_openings,
+                count(case when openings > 0 then subscriber_id end) as unique_openings,
+                sum(clicks) as total_clicks,
+                count(case when clicks > 0 then subscriber_id end) as unique_clicks            
+            ")
+            ->first();
 
-        return view('campaign.show', compact('campaign', 'what', 'search'));
+        return view('campaign.show', compact('campaign', 'what', 'search', 'query'));
     }
 }
