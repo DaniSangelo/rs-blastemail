@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('campaign_id')->constrained();
             $table->foreignId('subscriber_id')->constrained();
             $table->unsignedSmallInteger('clicks')->default(0);
-            $table->unsignedSmallInteger('opens')->default(0);
+            $table->unsignedSmallInteger('openings')->default(0);
             $table->dateTime('sent_at')->nullable();
             $table->timestamps();
         });

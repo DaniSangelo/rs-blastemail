@@ -22,7 +22,7 @@ class CampaignEmailFactory extends Factory
             'campaign_id' => Campaign::factory(),
             'subscriber_id' => Subscriber::factory(),
             'clicks' => fake()->numberBetween(0, 100),
-            'opens' => fake()->numberBetween(0, 100),
+            'openings' => fake()->numberBetween(0, 100),
             'sent_at' => fake()->dateTimeBetween('-1 week', '+1 week'),
         ];
     }
