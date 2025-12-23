@@ -5,12 +5,12 @@ use App\Http\Controllers\EmailListController;
 use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscribersController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Middleware\CampaignCreateSessionControl;
-use App\Mail\EmailCampaign;
-use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/t/{mail}/o', [TrackingController::class, 'openings'])->name('tracking.openings');
 
 Route::get('/', function() {
     // only to make things easier 😅
