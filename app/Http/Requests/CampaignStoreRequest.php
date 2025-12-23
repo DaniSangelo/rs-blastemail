@@ -61,7 +61,7 @@ class CampaignStoreRequest extends FormRequest
 
         $session = session('campaigns::create', $map);
         foreach ($session as $key => $value) {
-            $newValue = data_get($map, $key);
+            $newValue = data_get($session, $key);
 
             if (filled($newValue)) {
                 $session[$key] = $newValue;
