@@ -7,12 +7,14 @@
     </x-form>
     <x-table :headers="[__('Name'), __('# Clicks'), __('Email')]">
         <x-slot name="body">
-            <tr>
-                <x-table.td>Daniel</x-table.td>
-                <x-table.td>2</x-table.td>
-                <x-table.td>daniel@mail.com</x-table.td>
-            </tr>
+            @foreach ($query as $item)
+                <tr>
+                    <x-table.td>{{ $item->subscriber->name }}</x-table.td>
+                    <x-table.td>{{ $item->subscriber->email }}</x-table.td>
+                    <x-table.td>{{ $item->clicks }}</x-table.td>
+                </tr>
+            @endforeach
         </x-slot>
     </x-table>
-    {{-- {{ $campaigns->links() }} --}}
+    {{ $query->links() }}
 </div>

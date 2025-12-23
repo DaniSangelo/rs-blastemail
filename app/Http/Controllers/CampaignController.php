@@ -9,6 +9,7 @@ use App\Models\Campaign;
 use App\Models\CampaignEmail;
 use App\Models\EmailList;
 use App\Models\EmailTemplate;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Traits\Conditionable;
 
 class CampaignController extends Controller
@@ -93,21 +94,22 @@ class CampaignController extends Controller
 
     public function show(CampaignShowRequest $request, Campaign $campaign, ?string $what = null)
     {
-        if($redirect = $request->checkWhat()) {
+        if ($redirect = $request->checkWhat()) {
             return $redirect;
         }
 
-        $search = request()->get('search', null);
+        $search = request()->search;
+
         $query = $campaign
             ->mails()
-            ->selectRaw("
-                count(subscriber_id) as total_subscribers,
-                sum(openings) as total_openings,
-                count(case when openings > 0 then subscriber_id end) as unique_openings,
-                sum(clicks) as total_clicks,
-                count(case when clicks > 0 then subscriber_id end) as unique_clicks            
-            ")
-            ->first();
+            ->when($what === 'statistics', fn(Builder $query) => $query->statistics())
+            ->when($what === 'open', fn(Builder $query) => $query->openings($search))
+            ->when($what === 'clicked', fn(Builder $query) => $query->clicks($search))
+            ->simplePaginate(5)->withQueryString();
+
+        if ($what === 'statistics') {
+            $query = $query->first()->toArray();
+        }
 
         return view('campaign.show', compact('campaign', 'what', 'search', 'query'));
     }
