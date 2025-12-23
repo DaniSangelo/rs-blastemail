@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/t/{mail}/o', [TrackingController::class, 'openings'])->name('tracking.openings');
+Route::get('/t/{mail}/c', [TrackingController::class, 'clicks'])->name('tracking.clicks');
 
 Route::get('/', function() {
     // only to make things easier 😅

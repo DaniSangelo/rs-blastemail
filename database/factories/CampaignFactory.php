@@ -21,7 +21,7 @@ class CampaignFactory extends Factory
         return [
             'name' => fake()->word(),
             'subject' => fake()->words(3, true),
-            'body' => fake()->sentence(100, true),
+            'body' => fake()->sentence(25, true) . '<a href="https://google.com/">Clique aqui</a>',
             'track_click' => fake()->boolean(),
             'track_open' => fake()->boolean(),
             'send_at' => fake()->dateTime(),
