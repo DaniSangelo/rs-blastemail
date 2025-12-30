@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/email-list/{emailList}/subscribers', [SubscribersController::class, 'index'])->name('subscribers.index');
     Route::get('/email-list/{emailList}/subscribers/create', [SubscribersController::class, 'create'])->name('subscribers.create');
     Route::delete('/email-list/{emailList}/subscribers/{subscriber}', [SubscribersController::class, 'destroy'])->name('subscribers.destroy');
+    Route::delete('/email-list/{emailList}', [EmailListController::class, 'destroy'])->name('email-list.destroy');
     Route::post('/email-list/{emailList}/subscribers/create', [SubscribersController::class, 'store']);
 
     Route::resource('email-template', EmailTemplateController::class);

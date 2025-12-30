@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EmailList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EmailListController extends Controller
 {
@@ -104,6 +105,12 @@ class EmailListController extends Controller
      */
     public function destroy(EmailList $emailList)
     {
-        //
+        try {
+            $emailList->subscribers()->delete();
+            $emailList->delete();
+            return to_route('email-list.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
     }
 }
