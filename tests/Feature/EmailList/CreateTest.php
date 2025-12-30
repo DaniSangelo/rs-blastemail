@@ -10,10 +10,8 @@ class CreateTest extends TestCase
 {
     public function test_it_should_be_able_to_create_an_email_list()
     {
-        $this->withoutExceptionHandling();
-        /** @var User $user */
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        // $this->withoutExceptionHandling();
+        $this->login();
 
         $data = [
             'title' => 'Email list test',
@@ -42,10 +40,7 @@ class CreateTest extends TestCase
 
     public function test_title_should_be_required()
     {
-        /** @var User $user */
-        $user = User::factory()->create();
-
-        $this->actingAs($user);
+        $this->login();
 
         $this->post(route('email-list.create'), [])
             ->assertSessionHasErrors(['title' => 'The title field is required.']);
@@ -53,22 +48,14 @@ class CreateTest extends TestCase
 
      public function test_title_should_have_a_max_of_255_characters()
     {
-        /** @var User $user */
-        $user = User::factory()->create();
-
-        $this->actingAs($user);
-
+        $this->login();
         $this->post(route('email-list.create'), ['title' => str_repeat('*', 256)])
             ->assertSessionHasErrors(['title' => 'The title field must not be greater than 255 characters.']);
     }
 
     public function test_file_should_be_required()
     {
-        /** @var User $user */
-        $user = User::factory()->create();
-
-        $this->actingAs($user);
-
+        $this->login();
         $this->post(route('email-list.create'), [])
             ->assertSessionHasErrors(['listFile' => 'The list file field is required.']);
     }
