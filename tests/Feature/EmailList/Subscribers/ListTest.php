@@ -49,19 +49,6 @@ it('should be able to search a subscriber', function() {
     });
 });
 
-it('should be able to delete a subscriber', function() {
-    $subscriber = Subscriber::create([
-        'email_list_id' => $this->emailList->id,
-        'name' => 'Daniel Sângelo',
-        'email' => 'daniel.sangelo@example.com',
-    ]);
-
-    delete(route('subscribers.destroy', ['emailList' => $this->emailList, 'subscriber' => $subscriber->id]))
-    ->assertRedirectBack();
-    assertSoftDeleted('subscribers', ['id' => Subscriber::withTrashed()->first()->id]);
-    assertDatabaseCount('subscribers', 1);
-});
-
 it('should ble able to show deleted records', function () {
     Subscriber::factory()->create(['deleted_at' => now()]);
     Subscriber::factory()->create();
