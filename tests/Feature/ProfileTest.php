@@ -4,7 +4,7 @@ use App\Models\User;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertGuest;
 
-test('profile page is displayed', function () {
+it('profile page is displayed', function () {
     $user = User::factory()->create();
 
     $response = actingAs($user)
@@ -13,7 +13,7 @@ test('profile page is displayed', function () {
     $response->assertOk();
 });
 
-test('profile information can be updated', function () {
+it('profile information can be updated', function () {
     $user = User::factory()->create();
 
     $response = actingAs($user)
@@ -33,7 +33,7 @@ test('profile information can be updated', function () {
     expect($user->email_verified_at)->toBeNull();
 });
 
-test('email verification status is unchanged when the email address is unchanged', function () {
+it('email verification status is unchanged when the email address is unchanged', function () {
     $user = User::factory()->create();
 
     $response = actingAs($user)
@@ -49,7 +49,7 @@ test('email verification status is unchanged when the email address is unchanged
     expect($user->refresh()->email_verified_at)->not->toBeNull();
 });
 
-test('user can delete their account', function () {
+it('user can delete their account', function () {
     $user = User::factory()->create();
 
     $response = actingAs($user)
@@ -65,7 +65,7 @@ test('user can delete their account', function () {
     expect($user->fresh())->toBeNull();
 });
 
-test('correct password must be provided to delete account', function () {
+it('correct password must be provided to delete account', function () {
     $user = User::factory()->create();
 
     $response = actingAs($user)

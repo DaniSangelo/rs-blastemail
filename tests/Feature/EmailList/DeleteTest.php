@@ -9,7 +9,7 @@ beforeEach(function () {
     login();
 });
 
-test('it should be able to delete an email list', function () {
+it('it should be able to delete an email list', function () {
     //arrange
     $emailList = EmailList::factory()->create();
     Subscriber::factory()->count(10)->create([

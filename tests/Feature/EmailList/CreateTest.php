@@ -8,7 +8,7 @@ beforeEach(function () {
     login();
 });
 
-test('it should be able to create an email list', function () {
+it('it should be able to create an email list', function () {
     // $this->withoutExceptionHandling();
     $data = [
         'title' => 'Email list test',
@@ -35,17 +35,17 @@ test('it should be able to create an email list', function () {
     ]);
 });
 
-test('title should be required', function () {
+it('title should be required', function () {
     post(route('email-list.create'), [])
         ->assertSessionHasErrors(['title' => 'The title field is required.']);
 });
 
-test('title should have a max of 255 characters', function () {
+it('title should have a max of 255 characters', function () {
     post(route('email-list.create'), ['title' => str_repeat('*', 256)])
         ->assertSessionHasErrors(['title' => 'The title field must not be greater than 255 characters.']);
 });
 
-test('file should be required', function () {
+it('file should be required', function () {
     post(route('email-list.create'), [])
         ->assertSessionHasErrors(['listFile' => 'The list file field is required.']);
 });

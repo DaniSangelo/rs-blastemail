@@ -5,7 +5,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use function Pest\Laravel\get;
 use function Pest\Laravel\getJson;
 
-test('it should be paginated', function () {
+it('it should be paginated', function () {
     login();
     EmailList::factory()->count(40)->create();
 
@@ -17,7 +17,7 @@ test('it should be paginated', function () {
     });
 });
 
-test('it should be able to search a list', function () {
+it('it should be able to search a list', function () {
     login();
 
     EmailList::factory()->count(10)->create();
@@ -33,7 +33,7 @@ test('it should be able to search a list', function () {
     });
 });
 
-test('needs to be authenticated', function () {
+it('needs to be authenticated', function () {
     getJson(route('email-list.index'))->assertUnauthorized();
 
     login();
