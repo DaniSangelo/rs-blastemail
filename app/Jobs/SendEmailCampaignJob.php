@@ -37,7 +37,7 @@ class SendEmailCampaignJob implements ShouldQueue
                     'sent_at' => $this->campaign->sent_at,
                 ]);
 
-            Mail::to($this->subscriber->email)
-                ->later($this->campaign->send_at, new EmailCampaign($this->campaign, $mail));
+        $email = (new EmailCampaign($this->campaign, $mail))->delay($this->campaign->send_at);
+        Mail::to($this->subscriber)->queue($email);
     }
 }
