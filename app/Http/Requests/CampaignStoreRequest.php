@@ -68,9 +68,9 @@ class CampaignStoreRequest extends FormRequest
             }
         }
 
-        if ($templateId = $session['email_template_id'] && blank($session['body'])) {
-            $template = EmailTemplate::find($templateId)->select('body')->first();
-            $session['body'] = $template->body;
+        if (($templateId = $session['email_template_id']) && blank($session['body'])) {
+            $template = EmailTemplate::query()->select('body')->find($templateId);
+            $session['body'] = $template?->body;
         }
 
         session()->put('campaigns::create', $session);
