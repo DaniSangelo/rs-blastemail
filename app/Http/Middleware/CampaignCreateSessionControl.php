@@ -17,17 +17,17 @@ class CampaignCreateSessionControl
     {
         if (!str($request->header('referer'))->contains($request->route()->compiled->getStaticPrefix())) {
             session()->forget('campaigns::create');
-        } else {
-            $session = session()->get('campaigns::create');
-            $tab = $request->route('tab');
+        }
 
-            if (filled($tab) && blank(data_get($session,'name'))) {
-                return to_route('campaign.create');
-            }
+        $session = session()->get('campaigns::create');
+        $tab = $request->route('tab');
 
-            if ($tab == 'schedule' && blank(data_get($session,'body'))) {
-                return to_route('campaign.create', ['tab' => 'template']);
-            }
+        if (filled($tab) && blank(data_get($session,'name'))) {
+            return to_route('campaign.create');
+        }
+
+        if ($tab == 'schedule' && blank(data_get($session,'body'))) {
+            return to_route('campaign.create', ['tab' => 'template']);
         }
 
         return $next($request);
