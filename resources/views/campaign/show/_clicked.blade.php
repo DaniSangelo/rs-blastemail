@@ -5,7 +5,7 @@
     >
         <x-input.text name="search" placeholder="{{ __('Search') }}" value="{{ $search }}" />
     </x-form>
-    <x-table :headers="[__('Name'), __('# Clicks'), __('Email')]">
+    <x-table :headers="[__('Name'), __('Email'), __('# Clicks')]">
         <x-slot name="body">
             @foreach ($query as $item)
                 <tr>
